@@ -1,0 +1,47 @@
+{
+  "name": "Рецептник",
+  "short_name": "Рецептник",
+  "description": "Личная книга рецептов с пересчётом порций и импортом рецептов",
+  "start_url": "/Cookbook/index.html",
+  "scope": "/Cookbook/",
+  "display": "standalone",
+  "background_color": "#0f0d08",
+  "theme_color": "#1a1208",
+  "orientation": "portrait-primary",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["food", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Добавить рецепт",
+      "description": "Создать новый рецепт",
+      "url": "/Cookbook/index.html?action=add",
+      "icons": [{"src": "icon-192.png", "sizes": "192x192"}]
+    }
+  ]
+}
