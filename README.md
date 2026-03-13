@@ -1,6 +1,6 @@
 # 📖 Рецептник
 
-> Личная кулинарная книга — PWA-приложение для Android и браузера
+> Личная кулинарная книга — PWA-приложение для Android, iPhone и браузера
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-live-brightgreen?style=flat-square&logo=github)](https://tokalerud.github.io/Cookbook/)
 [![Version](https://img.shields.io/badge/version-v1.1-orange?style=flat-square)]()
