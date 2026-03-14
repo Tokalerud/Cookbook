@@ -447,6 +447,16 @@ select.form-control { cursor: pointer; }
   display: flex; align-items: center; justify-content: center;
   backdrop-filter: blur(4px);
 }
+.detail-photo-wrap .wake-overlay-btn {
+  position: absolute; bottom: 10px; left: 10px;
+  background: rgba(0,0,0,0.6); border: none; border-radius: 50%;
+  width: 44px; height: 44px; font-size: 22px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px); transition: background .2s;
+}
+.detail-photo-wrap .wake-overlay-btn.active {
+  background: rgba(200,130,0,0.85);
+}
 
 /* ── NUTRITION FORM SECTION ── */
 .nutr-manual-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
@@ -2809,8 +2819,9 @@ function renderDetail() {
       ? `<div class="detail-photo-wrap" id="detail-photo-wrap">
            <img src="${imgSrc}" alt="${r.title}" id="detail-photo-img" onerror="this.parentElement.innerHTML='<div style=\'font-size:64px;text-align:center;line-height:240px\'>${r.emoji||'🍽️'}</div>'">
            <button onclick="addToShoppingList(${r.id},${currentPortions});event.stopPropagation()" title="В список покупок" class="shop-overlay-btn">🛒</button>
+           <button id="btn-wake-overlay" onclick="toggleWakeLock();event.stopPropagation()" title="Не гасить экран" class="wake-overlay-btn${_wakeLockEnabled ? ' active' : ''}">💡</button>
          </div>`
-      : `<div style="font-size:64px;text-align:center;padding:24px 0">${r.emoji||'🍽️'}</div>`}
+      : `<div style="position:relative;text-align:center;padding:24px 0 54px"><span style="font-size:64px">${r.emoji||'🍽️'}</span><button onclick="addToShoppingList(${r.id},${currentPortions});event.stopPropagation()" title="В список покупок" class="shop-overlay-btn" style="position:absolute;bottom:10px;right:10px">🛒</button><button id="btn-wake-overlay" onclick="toggleWakeLock();event.stopPropagation()" title="Не гасить экран" class="wake-overlay-btn${_wakeLockEnabled ? ' active' : ''}" style="position:absolute;bottom:10px;left:10px">💡</button></div>`}
     <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px">
       <div class="recipe-detail-title" style="margin-bottom:0;flex:1">${r.title}</div>
       <button class="detail-fav-btn${r.favorite?' fav-active':''}" onclick="toggleFavorite(${r.id});renderDetail()">${r.favorite?'❤️ Избранное':'🤍 Избранное'}</button>
@@ -5094,10 +5105,13 @@ async function toggleWakeLock() {
       if (!_wakeLockCooking) _releaseWakeLock();
       showToast('💡 Блокировка экрана отключена');
     }
-    const btn = document.getElementById('btn-wake');
-    if (btn) {
-      btn.textContent = _wakeLockEnabled ? '💡 Экран не гаснет' : '💡 Не гасить экран';
-      btn.className = 'btn ' + (_wakeLockEnabled ? 'btn-primary' : 'btn-secondary');
+    // Обновляем обе кнопки — на фото и в action-bar
+    const btnOverlay = document.getElementById('btn-wake-overlay');
+    if (btnOverlay) btnOverlay.classList.toggle('active', _wakeLockEnabled);
+    const btnBar = document.getElementById('btn-wake');
+    if (btnBar) {
+      btnBar.textContent = _wakeLockEnabled ? '💡 Экран не гаснет' : '💡 Не гасить экран';
+      btnBar.className = 'btn ' + (_wakeLockEnabled ? 'btn-primary' : 'btn-secondary');
     }
   } catch(e) {
     console.warn('wakeLock:', e);
